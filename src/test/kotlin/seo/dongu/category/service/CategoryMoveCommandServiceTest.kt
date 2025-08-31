@@ -6,13 +6,13 @@ import org.springframework.boot.test.context.SpringBootTest
 import kotlin.test.assertEquals
 
 @SpringBootTest
-class CategoryMoveServiceTest {
+class CategoryMoveCommandServiceTest {
 
   @Autowired
   lateinit var categoryCommandService: CategoryCommandService
 
   @Autowired
-  lateinit var categoryMoveService: CategoryMoveService
+  lateinit var categoryMoveCommandService: CategoryMoveCommandService
 
   @Autowired
   lateinit var categoryQueryService: CategoryQueryService
@@ -29,7 +29,7 @@ class CategoryMoveServiceTest {
     val leaf = categoryCommandService.createCategory("grandchild2", childCategory.id)
 
     // when
-    categoryMoveService.moveCategory(leaf.id, null)
+    categoryMoveCommandService.moveCategory(leaf.id, null)
     val category = categoryQueryService.getCategory(leaf.id)
 
     // then
@@ -50,7 +50,7 @@ class CategoryMoveServiceTest {
     categoryCommandService.createCategory("grandchild2", childCategory.id)
 
     // when
-    categoryMoveService.moveCategory(childCategory.id, null)
+    categoryMoveCommandService.moveCategory(childCategory.id, null)
     val category = categoryQueryService.getCategory(childCategory.id)
 
     // then
@@ -71,7 +71,7 @@ class CategoryMoveServiceTest {
     categoryCommandService.createCategory("grandchild2", childCategory.id)
 
     // when
-    categoryMoveService.moveCategory(childCategory.id, target.id)
+    categoryMoveCommandService.moveCategory(childCategory.id, target.id)
     val category = categoryQueryService.getCategory(target.id)
 
     // then

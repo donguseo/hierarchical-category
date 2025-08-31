@@ -23,4 +23,10 @@ class CategoryQueryService(
     val rootIds = categoryRepository.findIdByParentIdIsNull()
     return rootIds.map(this::getCategory)
   }
+
+  fun getAllAncestorIds(categoryId: Long): List<Long> {
+    return categoryTreeRepository.findByDescendantId(categoryId)
+      .map { it.ancestorId }
+      .filter { it != categoryId }
+  }
 }
