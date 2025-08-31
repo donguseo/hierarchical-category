@@ -2,6 +2,7 @@ package seo.dongu.category.controller
 
 import org.springframework.web.bind.annotation.*
 import seo.dongu.category.dto.CategoryTreeDto
+import seo.dongu.category.dto.CommonResponse
 import seo.dongu.category.service.CategoryCacheService
 import seo.dongu.category.service.CategoryCreateService
 import seo.dongu.category.service.CategoryDeleteService
@@ -17,37 +18,37 @@ class CategoryController(
 ) {
 
   @GetMapping
-  fun getAllCategories(): List<CategoryTreeDto> {
-    return categoryCacheService.getAllCategories()
+  fun getAllCategories(): CommonResponse<List<CategoryTreeDto>> {
+    return CommonResponse.success(categoryCacheService.getAllCategories())
   }
 
   @GetMapping("/{id}")
-  fun getCategory(@PathVariable id: Long): CategoryTreeDto {
-    return categoryCacheService.getCategory(id)
+  fun getCategory(@PathVariable id: Long): CommonResponse<CategoryTreeDto> {
+    return CommonResponse.success(categoryCacheService.getCategory(id))
   }
 
   @PostMapping
   fun createCategory(
     @RequestParam name: String,
     @RequestParam(required = false) parentId: Long?
-  ): CategoryTreeDto {
-    return categoryCreateService.createCategory(name, parentId)
+  ): CommonResponse<CategoryTreeDto> {
+    return CommonResponse.success(categoryCreateService.createCategory(name, parentId))
   }
 
   @DeleteMapping("/{id}")
   fun deleteCategory(
     @PathVariable id: Long
-  ): Boolean {
+  ): CommonResponse<Boolean> {
     categoryDeleteService.deleteCategory(id)
-    return true
+    return CommonResponse.success(true)
   }
 
   @PutMapping("/{id}/move")
   fun moveCategory(
     @PathVariable id: Long,
     @RequestParam(required = false) newParentId: Long?
-  ): Boolean {
+  ): CommonResponse<Boolean> {
     categoryMoveService.moveCategory(id, newParentId)
-    return true
+    return CommonResponse.success(true)
   }
 }
