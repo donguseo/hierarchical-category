@@ -37,15 +37,17 @@ class CategoryController(
   @DeleteMapping("/{id}")
   fun deleteCategory(
     @PathVariable id: Long
-  ) {
+  ): Boolean {
     categoryDeleteService.deleteCategory(id)
+    return true
   }
 
   @PutMapping("/{id}/move")
   fun moveCategory(
     @PathVariable id: Long,
     @RequestParam(required = false) newParentId: Long?
-  ) {
+  ): Boolean {
     categoryMoveService.moveCategory(id, newParentId)
+    return true
   }
 }

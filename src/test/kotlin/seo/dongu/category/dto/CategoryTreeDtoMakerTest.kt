@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import seo.dongu.category.entity.CategoryEntity
 
-class CategoryTreeBuildTest {
+class CategoryTreeDtoMakerTest {
 
   @Test
   fun `단일 카테고리 트리 생성`() {
